@@ -1,28 +1,121 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<!-- Updated index page with modern meta tags and semantic body elements -->
 <html lang="es">
     <head>
-        <title>Tienda en línea</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Esta pagina contiene etiquetas del tipo html5 y luego enlaces o definición de css">
-        <meta name="keywords" content="html, css3, web, fidelitas">
-        <link href="css/menu.css" rel="stylesheet" type="text/css">
+        <title>Tienda en línea - TechShop</title>
+        <meta name="description" content="Página con estructura HTML5 moderna y estilos CSS integrados.">
+        <meta name="keywords" content="html, css3, web, fidelitas, tienda, techshop">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            /* Reset básico */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            header {
+                background-color: #1e1e2f;
+                padding: 1rem 0;
+            }
+
+            .nav {
+                max-width: 1200px;
+                margin: auto;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 1rem;
+            }
+
+            .logo {
+                color: #ffffff;
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .nav-menu {
+                list-style: none;
+                display: flex;
+                gap: 1rem;
+            }
+
+            .nav-menu-link {
+                color: #ffffff;
+                text-decoration: none;
+                padding: 0.5rem 0.75rem;
+                border-radius: 5px;
+                transition: background 0.3s;
+            }
+
+            .nav-menu-link:hover {
+                background-color: #33334d;
+            }
+
+            main {
+                display: flex;
+                flex-wrap: wrap;
+                max-width: 1200px;
+                margin: 2rem auto;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            #contenido-principal {
+                flex: 2;
+            }
+
+            article {
+                background: #ffffff;
+                padding: 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            aside {
+                flex: 1;
+                background: #e6e9f0;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            footer {
+                background-color: #1e1e2f;
+                color: #ffffff;
+                text-align: center;
+                padding: 1rem 0;
+                margin-top: 2rem;
+            }
+
+            footer a {
+                color: #ffdd57;
+                text-decoration: none;
+            }
+
+            footer a:hover {
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body>
-        <header class="header"> <!-- Etiqueta para ofrecerle al browser info de que es un encabezado -->
-            <nav class="nav"> <!-- En esta etiqueta es para ilustrarle al browser que posiblemente es un menú -->
-                <a href="index.html" class="logo nav-link">TechShop</a>
+        <header>
+            <nav class="nav">
+                <a href="index.html" class="logo">TechShop</a>
                 <ul class="nav-menu">
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="ejemplo1.html">LeftTriangleBar</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="ejemplo2.html">RightTriangleBar</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="videos.html">Videos</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="musica.html">Audio</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="iframe.html">Iframe</a></li>
-                    <li class="nav-menu-item"><a class="nav-menu-link nav-link" href="formulario.html">Formulario</a></li>
+                    <li><a class="nav-menu-link" href="ejemplo1.html">LeftTriangleBar</a></li>
+                    <li><a class="nav-menu-link" href="ejemplo2.html">RightTriangleBar</a></li>
+                    <li><a class="nav-menu-link" href="videos.html">Videos</a></li>
+                    <li><a class="nav-menu-link" href="musica.html">Audio</a></li>
+                    <li><a class="nav-menu-link" href="iframe.html">Iframe</a></li>
+                    <li><a class="nav-menu-link" href="formulario.html">Formulario</a></li>
                 </ul>
             </nav>
         </header>
@@ -31,13 +124,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <section id="contenido-principal">
                 <article>
                     <h2>Artículo Principal</h2>
-                    <p>Contenido informativo importante...</p>
+                    <p>Contenido informativo importante sobre nuestros productos tecnológicos más recientes y sus características destacadas.</p>
                 </article>
             </section>
 
             <aside>
                 <h3>Noticias Relacionadas</h3>
-                <p>Información adicional...</p>
+                <p>Mantente al día con las últimas novedades del mundo tech: lanzamientos, análisis y más.</p>
             </aside>
         </main>
 
@@ -49,5 +142,3 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </footer>
     </body>
 </html>
-
-
