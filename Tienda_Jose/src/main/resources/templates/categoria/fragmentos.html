@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TiendaPatito</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+
+        <section th:replace="~{categoria/modifica :: modalPrd}"/>
+
+        <section>
+            <!-- Sección principal para mostrar categorías en la página web -->
+            <section th:replace="~{categoria/modifica :: modalPrd}"/>
+        </section>
+
+        <!-- Sección siguiente para mostrar la información de la entidad categoría -->
+        <section th:replace="~{categoria/listadoCategorias}"/>
+
+        <!-- Fragmento que se utiliza en la página mostrar.html -->
+        <section th:replace="~{categoria/listadoCategorias}"/>
+
+        <!-- Sección cuando que se utiliza en el fragmento anterior -->
+        <section th:replace="~{categoria/listadoCategorias}"/>
+
+        <footer th:replace="~{layout/plantilla :: footer}"/>
+    </body>
+</html>
