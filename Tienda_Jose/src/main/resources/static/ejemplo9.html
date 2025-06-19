@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Ejemplo 9 - Registro de cliente</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <nav>
+            <a href="ejemplo8.html">Back</a> |
+            <a href="mi_index.html">Home</a> |
+            <a href="ejemplo10.html">Next</a>
+        </nav>
+
+        <h1>Registro de cliente</h1>
+
+        <form action="/procesar-registro" method="POST">
+            <div style="margin-bottom: 15px;">
+                <label for="nombre">Nombre:</label><br>
+                <input id="nombre" placeholder="Ingrese su nombre" type="text" name="nombre" required style="width: 250px; padding: 5px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="apellidos">Apellidos:</label><br>
+                <input id="apellidos" placeholder="Ingrese sus apellidos" type="text" name="apellidos" required style="width: 250px; padding: 5px;">
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label for="correo">Correo electrónico:</label><br>
+                <input id="correo" placeholder="ejemplo@dominio.com" type="email" name="correo" required style="width: 250px; padding: 5px;">
+            </div>
+
+            <button type="submit" style="padding: 8px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+                Registrar
+            </button>
+        </form>
+    </body>
+</html>
+

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tienda en línea</title>
+        <meta name="description" content="Esta página contiene etiquetas del tipo HTML5 y CSS3">
+        <meta name="keywords" content="html5, css3, web, fidelitas">
+        <style>
+            body {
+                margin: 0;
+                font-family: 'Segoe UI', sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+            }
+
+            header {
+                background-color: #1abc9c;
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            nav {
+                background-color: #16a085;
+            }
+
+            nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 15px;
+            }
+
+            nav ul li a {
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                padding: 14px 10px;
+                display: block;
+            }
+
+            nav ul li a:hover {
+                background-color: #148f77;
+            }
+
+            aside {
+                background-color: #ecf0f1;
+                padding: 15px;
+                width: 25%;
+                float: left;
+                box-sizing: border-box;
+            }
+
+            #contenido {
+                padding: 20px;
+                width: 75%;
+                float: left;
+                box-sizing: border-box;
+            }
+
+            article {
+                background-color: white;
+                padding: 15px;
+                border-radius: 8px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                margin-bottom: 20px;
+            }
+
+            video {
+                max-width: 100%;
+                border-radius: 6px;
+            }
+
+            footer {
+                clear: both;
+                background-color: #1abc9c;
+                color: white;
+                text-align: center;
+                padding: 10px 0;
+                font-size: 14px;
+            }
+
+            footer a {
+                color: #ffeaa7;
+                text-decoration: none;
+            }
+
+            figure {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Tienda en línea</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="mi_index.html">Inicio</a></li>
+                <li><a href="videos.html">Videos</a></li>
+                <li><a href="formulario.html">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <aside>
+            <h3>Ofertas especiales</h3>
+            <p>Productos destacados de la semana</p>
+        </aside>
+
+        <section id="contenido">
+            <h2>Ejemplo de videos</h2>
+            <article>
+                <header><h3>Torpedo</h3></header>
+                <figure>
+                    <video width="100%" controls autoplay muted>
+                        <source src="video/torpedo.mp4" type="video/mp4">
+                        Su explorador no soporta el formato del video <code>video</code>
+                    </video>
+                    <figcaption>Realizada en 2021</figcaption>
+                </figure>
+            </article>
+        </section>
+
+        <footer id="piepagina">
+            Derechos reservados &copy; 2022 
+            <address style="display: inline;">
+                Contacto: <a href="mailto:info@tienda.com">info@tienda.com</a>
+            </address>
+        </footer>
+    </body>
+</html>
+
+
+
