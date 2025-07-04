@@ -49,7 +49,7 @@ public class ProductoController {
         if (!imagenFile.isEmpty()) {
             productoService.save(producto);
             producto.setRutaImagen(
-                    firebaseStorageService.cargaImagen(
+                    firebaseStorageService.cargarImagen(
                             imagenFile, 
                             "producto", 
                             producto.getIdProducto()));
