@@ -61,43 +61,48 @@
         </section>
 
         <!-- 3 Seccion principal para mostrar la informacion de la entidad producto -->
-        <section thisfragment="listadoProductos" id="productos">
+        <section th:fragment="listadoProductos" id="productos">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>{{producto.listado}}</h4>
+                                <h4>[[#{producto.listado}]]</h4>
                             </div>
-                            <div th:if="${productos != null and !productos.empty}" >
+                            <div th:if="${productos != null and !productos.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th class="text-center">{{listado.descripcion}}</th>
-                                            <th class="text-center">{{listado.precio}}</th>
-                                            <th class="text-center">{{listado.existencias}}</th>
-                                            <th class="text-center">{{listado.total}}</th>
-                                            <th class="text-center">{{listado.activo}}</th>
-                                            <th class="text-center">{{listado.categoria}}</th>
-                                            <th></th><th></th><th></th>
+                                            <th class="text-center">[[#{listado.descripcion}]]</th>
+                                            <th class="text-center">[[#{listado.precio}]]</th>
+                                            <th class="text-center">[[#{listado.existencias}]]</th>
+                                            <th class="text-center">[[#{listado.total}]]</th>
+                                            <th class="text-center">[[#{listado.activo}]]</th>
+                                            <th class="text-center">[[#{listado.categoria}]]</th>
+                                            <th colspan="2" class="text-center">[[#{acciones}]]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="producto, contador : ${productos}">
-                                            <td class="text-center">{{producto.descripcion}}</td>
-                                            <td class="text-center">{{producto.precio}}</td>
-                                            <td class="text-center">{{producto.existencias}}</td>
-                                            <td class="text-center">{{numero.formatoDecimal(producto.precio, 1, 'DEFAULT', 2, 'DEFAULT')}}</td>
-                                            <td class="text-center">{{numero.formatoDecimal(producto.precio*producto.existencias, 1, 'DEFAULT', 2, 'DEFAULT')}}</td>
-                                            <td class="text-center th:text="${producto.activo}">{{activo.si}}</td>
-                                            <td>{{producto.categoria.descripcion}}</td>
-                                            <td><a th:href="@{/producto/eliminar/}+${producto.idProducto}"
-                                                   class="btn btn-outline-danger btn-sm">
-                                                    <i class="fas fa-trash"></i> {{listado.eliminar}}</a></td>
+                                            <td class="text-center">[[${producto.descripcion}]]</td>
+                                            <td class="text-center">[[${producto.precio}]]</td>
+                                            <td class="text-center">[[${producto.existencias}]]</td>
+                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio, 1, 'DEFAULT', 2, 'DEFAULT')}]]</td>
+                                            <td class="text-center">[[${#numbers.formatDecimal(producto.precio * producto.existencias, 1, 'DEFAULT', 2, 'DEFAULT')}]]</td>
+                                            <td class="text-center" th:text="${producto.activo} ? #{activo.si} : #{activo.no}"></td>
+                                            <td class="text-center">[[${producto.categoria.descripcion}]]</td>
                                             <td>
-                                                <a th:href="@{/producto/modificar/}+${producto.idProducto}"
+                                                <a th:href="@{/producto/eliminar/{id}(id=${producto.idProducto})}"
+                                                   class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> [[#{listado.eliminar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/producto/modificar/{id}(id=${producto.idProducto})}"
                                                    class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> {{accion.actualizar}}</a></td>
+                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                </a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -107,6 +112,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- 4 Fragmento que se utiliza en la página modifca.html -->
         <section th:fragment="editarCategoria">
