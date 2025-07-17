@@ -8,7 +8,7 @@
     <body>
 
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container">
+            <div class="container"sec:authorize="hasRole('ROLE_ADMIN')">
                 <div class="row">
                     <div class="col-md-3">   
                         <button 
@@ -112,14 +112,15 @@
                                             <td>$[[${#numbers.formatDecimal(producto.precio, 1, 'COMMA', 2, 'POINT')}]]</td>
                                             <td>[[${producto.existencias}]]</td>
                                             <td th:text="${producto.activo} ? 'Activo' : 'Inactivo'"></td>
-                                            <td>
-                                                <a th:href="@{/producto/eliminar/}+${producto.idProducto}" class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
-                                                </a>
-                                                <a th:href="@{/producto/modificar/}+${producto.idProducto}" class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
-                                                </a>
-                                            </td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <td>
+                                                    <a th:href="@{/producto/eliminar/}+${producto.idProducto}" class="btn btn-danger">
+                                                        <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                                                    </a>
+                                                    <a th:href="@{/producto/modificar/}+${producto.idProducto}" class="btn btn-success">
+                                                        <i class="fas fa-pencil"></i> [[#{accion.actualizar}]]
+                                                    </a>
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>
