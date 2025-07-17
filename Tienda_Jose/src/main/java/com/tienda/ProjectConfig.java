@@ -17,6 +17,9 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
@@ -96,7 +99,7 @@ public class ProjectConfig implements WebMvcConfigurer {
 
 /* El siguiente método se utiliza para completar la clase no es 
     realmente funcional, la próxima semana se reemplaza con usuarios de BD */    
-    @Bean
+    /*@Bean
     public UserDetailsService users() {
         UserDetails admin = User.builder()
                 .username("juan")
@@ -114,6 +117,16 @@ public class ProjectConfig implements WebMvcConfigurer {
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user, sales, admin);
+    }*/
+    
+    
+        @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder build) throws Exception {
+        build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
+
 }
  
