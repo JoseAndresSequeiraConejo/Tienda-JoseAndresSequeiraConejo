@@ -1,32 +1,17 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org/"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-
-    <!-- Inclusión del encabezado desde la plantilla layout -->
     <head th:replace="~{layout/plantilla :: head}">
         <title>TechShop</title>
     </head>
-
     <body>
-
-        <!-- Inclusión del header desde la plantilla layout -->
         <header th:replace="~{layout/plantilla :: header}"></header>
 
-        <!-- Fragmento de botones para agregar usuario -->
         <section th:replace="~{usuario/fragmentos :: botonesAgregar}"></section>
-
-        <!-- Fragmento del formulario para agregar usuario -->
         <section th:replace="~{usuario/fragmentos :: agregarUsuario}"></section>
-
-        <!-- Fragmento del listado de usuarios -->
         <section th:replace="~{usuario/fragmentos :: listadoUsuarios}"></section>
 
-        <!-- Inclusión del footer desde la plantilla layout -->
         <footer th:replace="~{layout/plantilla :: footer}"></footer>
 
     </body>
