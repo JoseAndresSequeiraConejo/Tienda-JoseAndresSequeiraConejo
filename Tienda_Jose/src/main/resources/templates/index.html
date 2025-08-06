@@ -6,6 +6,32 @@
     </head>
     <body>
         <header th:replace="~{layout/plantilla :: header}"/>
+        <!-- 2 Sección para mostrar los productos en formato para carrito de compras... -->
+        <section th:fragment="carrito" class="mb-4">
+            <div class="row row-cols-4">
+                <div th:each="p : ${productos}" class="card p-2">
+                    <figure>
+                        <img th:src="${p.rutaImagen}" height="200" />
+                        <figcaption class="d-flex justify-content-evenly">
+                            <div>
+                                ₡[[${p.precio}]] ([[${p.existencias}]])
+                            </div>
+                            <div>
+                                <form>
+                                    <input type="hidden" name="texto" th:value="${p.idProducto}" />
+                                    <input type="hidden" name="texto" th:value="${p.existencias}" />
+                                    <button class="btn btn-ligth" id="addCar"
+                                            name="addCar" onclick="addCard(this.form)"
+                                            type="button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
 
         <footer th:replace="~{layout/plantilla :: footer}"/>          
     </body>
