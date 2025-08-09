@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
@@ -18,13 +18,27 @@
                 <div class="container">
                     <a th:href="@{/}" class="navbar-brand mb-0 h1">[[#{aplicacion.titulo}]]</a>
                     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        "navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <ul class="navbar-nav" sec:authorize="hasRole ('ROLE_ADMIN')or hasRole ('ROLE_VENDEDOR')"> 
-                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a></li>
-                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a></li>                           
-                            <li class="nav-item dropdown" sec:authorize="hasRole ('ROLE_ADMIN')">
+
+                        <!-- Menú con restricción solo para ADMIN y VENDEDOR -->
+                        <ul class="navbar-nav" sec:authorize="hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR')"> 
+                            <li class="nav-item px-2">
+                                <a class="nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a>
+                            </li>
+                        </ul>
+
+                        <!-- Enlace a productos visible para todos -->
+                        <ul class="navbar-nav">
+                            <li class="nav-item px-2">
+                                <a class="nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a>
+                            </li>
+                        </ul>
+
+                        <!-- Menú dropdown solo para ADMIN -->
+                        <ul class="navbar-nav" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" 
                                    data-bs-toggle="dropdown" 
                                    href="#" 
@@ -36,8 +50,9 @@
                                     <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>
                                 </ul>
                             </li>
-
                         </ul>
+
+                        <!-- Selector de idioma -->
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{idioma}]]</a>
@@ -47,15 +62,17 @@
                                 </ul>
                             </li>
                         </ul>
-                        <div id ="resultsBlock">
-                        </div>
-                        <ul class="navbar-nav" 
-                            sec:authorize="!isAuthenticated()">
+
+                        <div id="resultsBlock"></div>
+
+                        <!-- Enlace login solo para no autenticados -->
+                        <ul class="navbar-nav" sec:authorize="!isAuthenticated()">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/login}"><i class="fas fa-sign-in-alt"></i></a>
                             </li>
                         </ul>
 
+                        <!-- Información usuario y logout para autenticados -->
                         <ul class="navbar-nav" sec:authorize="isAuthenticated()">
                             <li class="nav-item text-white my-auto">
                                 <i class="fas fa-user"></i> <span sec:authentication="name">Bob</span>
@@ -81,6 +98,33 @@
             </section>
         </header>
 
+        <!-- Fragmento: Carrito SIN restricción de rol -->
+        <section th:fragment="carrito" class="mb-4">
+            <div class="row row-cols-4">
+                <div th:each="p : ${productos}" class="card p-2">
+                    <figure>
+                        <img th:src="${p.rutaImagen}" height="200" alt="Imagen producto"/>
+                        <figcaption class="d-flex justify-content-evenly">
+                            <div>
+                                $<span th:text="${p.precio}"></span> (<span th:text="${p.existencias}"></span>)
+                            </div>
+                            <div>
+                                <form>
+                                    <input type="hidden" name="idProducto" th:value="${p.idProducto}"/>
+                                    <input type="hidden" name="existencia" th:value="${p.existencias}"/>
+                                    <button class="btn btn-light" id="addCar" name="addCar" onclick="addCard(this.form)" type="button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+
+
         <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
             <div class="container">
                 <div class="col">
@@ -91,5 +135,5 @@
             </div>
         </footer>
 
-
     </body>
+</html>

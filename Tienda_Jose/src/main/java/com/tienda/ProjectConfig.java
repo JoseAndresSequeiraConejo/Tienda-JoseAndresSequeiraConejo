@@ -1,3 +1,8 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
 package com.tienda;
 
 import java.util.Locale;
@@ -18,13 +23,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Configuration
 public class ProjectConfig implements WebMvcConfigurer {
+    /* Los siguientes métodos son para incorporar el tema de internacionalización en el proyecto */
 
-    // —— Internacionalización ——
+    /* localeResolver se utiliza para crear una sesión de cambio de idioma*/
     @Bean
     public LocaleResolver localeResolver() {
         var slr = new SessionLocaleResolver();
@@ -34,6 +41,7 @@ public class ProjectConfig implements WebMvcConfigurer {
         return slr;
     }
 
+    /* localeChangeInterceptor se utiliza para crear un interceptor de cambio de idioma*/
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         var lci = new LocaleChangeInterceptor();
@@ -42,94 +50,94 @@ public class ProjectConfig implements WebMvcConfigurer {
     }
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(localeChangeInterceptor());
+    public void addInterceptors(InterceptorRegistry registro) {
+        registro.addInterceptor(localeChangeInterceptor());
     }
 
+    //Bean para poder acceder a los Messages.properties en código...
     @Bean("messageSource")
     public MessageSource messageSource() {
-        var messageSource = new ResourceBundleMessageSource();
+        ResourceBundleMessageSource messageSource= new ResourceBundleMessageSource();
         messageSource.setBasenames("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
-    // —— Mapeo directo a vistas estáticas ——
+    /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
+
+    // DESCOMENTADO: Para que Spring sepa dónde están tus vistas, incluida la de login.
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/registro/nuevo").setViewName("registro/nuevo");
+        registry.addViewController("/registro/nuevo").setViewName("/registro/nuevo");
     }
 
-    // —— Seguridad HTTP —— 
+    // DESCOMENTADO: Este es el bean principal de seguridad que define las reglas y el formulario de login.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Para evitar problemas con formularios de login en desarrollo
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                // recursos públicos + estáticos
+                .authorizeHttpRequests((request) -> request
+                .requestMatchers("/","/index","/errores/**",
+                        "/carrito/**","/pruebas/**","/reportes/**",
+                        "/registro/**","/js/**","/webjars/**")
+                        .permitAll()
                 .requestMatchers(
-                        "/", "/index", "/errores/**",
-                        "/registro/**", "/carrito/**", "/pruebas/**", "/reportes/**",
-                        "/js/**", "/css/**", "/images/**", "/webjars/**"
-                ).permitAll()
-                // solo ADMIN puede crear/editar/eliminar
-                .requestMatchers(
-                        "/producto/nuevo", "/producto/guardar", "/producto/modificar/**", "/producto/eliminar/**",
-                        "/categoria/nuevo", "/categoria/guardar", "/categoria/modificar/**", "/categoria/eliminar/**",
-                        "/usuario/nuevo", "/usuario/guardar", "/usuario/modificar/**", "/usuario/eliminar/**",
+                        "/producto/nuevo","/producto/guardar",
+                        "/producto/modificar/**","/producto/eliminar/**",
+                        "/categoria/nuevo","/categoria/guardar",
+                        "/categoria/modificar/**","/categoria/eliminar/**",
+                        "/usuario/nuevo","/usuario/guardar",
+                        "/usuario/modificar/**","/usuario/eliminar/**",
                         "/reportes/**"
                 ).hasRole("ADMIN")
-                // ADMIN o VENDEDOR pueden ver listados de producto y categoría
                 .requestMatchers(
-                        "/producto/listado",
-                        "/categoria/listado"
-                ).hasAnyRole("ADMIN", "VENDEDOR")
-                // **solo ADMIN** puede ver el listado de usuarios
-                .requestMatchers("/usuario/listado")
-                .hasRole("ADMIN")
-                // USER puede facturar carrito
+                    "/producto/listado",
+                    "/categoria/listado",
+                    "/usuario/listado"
+                ).hasAnyRole("ADMIN", "VENDEDOR", "USER")
+
                 .requestMatchers("/facturar/carrito")
                 .hasRole("USER")
-                // cualquier otra petición requiere autenticar
-                .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                .loginPage("/login")
-                .permitAll()
-                )
-                .logout(logout -> logout.permitAll());
-
+                .formLogin((form) -> form
+                .loginPage("/login").permitAll())
+                .logout((logout) -> logout.permitAll());
         return http.build();
     }
 
-//    @Bean
-//    public UserDetailsService users() {
-//        UserDetails admin = User.builder()
-//            .username("juan")
-//            .password("{noop}123")
-//            .roles("USER","VENDEDOR","ADMIN")
-//            .build();
-//        UserDetails sales = User.builder()
-//            .username("rebeca")
-//            .password("{noop}456")
-//           .roles("USER","VENDEDOR")
-//            .build();
-//        UserDetails user = User.builder()
-//            .username("pedro")
-//            .password("{noop}789")
-//            .roles("USER")
-//            .build();
-//        return new InMemoryUserDetailsManager(user, sales, admin);
-//    }
+    /* El siguiente método se utiliza para completar la clase no es
+     * realmente funcional, la próxima semana se reemplaza con usuarios de BD
+     * Este bean DEBE PERMANECER COMENTADO si quieres usar la base de datos.
+     */
+    // @Bean
+    // public UserDetailsService users() {
+    //     UserDetails admin = User.builder()
+    //             .username("juan")
+    //             .password("{noop}123")
+    //             .roles("USER", "VENDEDOR", "ADMIN")
+    //             .build();
+    //     UserDetails sales = User.builder()
+    //             .username("rebeca")
+    //             .password("{noop}456")
+    //             .roles("USER", "VENDEDOR")
+    //             .build();
+    //     UserDetails user = User.builder()
+    //             .username("pedro")
+    //             .password("{noop}789")
+    //             .roles("USER")
+    //             .build();
+    //     return new InMemoryUserDetailsManager(user, sales, admin);
+    // }
+
+    // DESCOMENTADO: Inyección de tu UserDetailsService que se conecta a la BD.
     @Autowired
     private UserDetailsService userDetailsService;
 
+    // DESCOMENTADO: Configura el AuthenticationManager con tu UserDetailsService y el PasswordEncoder.
     @Autowired
-    public void configurerGlobar(AuthenticationManagerBuilder build) throws Exception {
-        build.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    public void configurerGlobal (AuthenticationManagerBuilder build) throws Exception {
+        build.userDetailsService (userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }
